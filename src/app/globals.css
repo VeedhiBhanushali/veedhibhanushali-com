@@ -77,15 +77,6 @@ body > * {
   background: transparent;
 }
 
-/* Default “100%” should visually match ~75% browser zoom on desktop. */
-.pf-layout-desktop .pf-page {
-  --pf-ui-scale: 0.75;
-  transform: scale(var(--pf-ui-scale));
-  transform-origin: top left;
-  width: calc(100% / var(--pf-ui-scale));
-  height: calc(100dvh / var(--pf-ui-scale));
-}
-
 /* ── Stage / Canvas scaling ───────────────────────────────────────────────── */
 .pf-stage {
   position: absolute;
@@ -104,7 +95,7 @@ body > * {
   margin-top: -540px;
   margin-left: -960px;
   transform-origin: center center;
-  transform: scale(min(calc(100cqi / 1920), calc(100cqb / 1080)));
+  transform: scale(calc(0.75 * min(calc(100cqi / 1920), calc(100cqb / 1080))));
 }
 
 .pf-card-layer {
@@ -330,21 +321,7 @@ body > * {
   display: none;
 }
 
-/* JS-driven gate (more reliable than media queries on some desktop setups). */
-.pf-layout-desktop .pf-desktop {
-  display: block;
-}
-.pf-layout-desktop .pf-responsive {
-  display: none;
-}
-.pf-layout-responsive .pf-responsive {
-  display: flex;
-}
-.pf-layout-responsive .pf-desktop {
-  display: none;
-}
-
-@media (min-width: 700px) {
+@media (min-width: 1200px) {
   .pf-desktop {
     display: block;
   }
@@ -354,7 +331,7 @@ body > * {
   }
 }
 
-@media (max-width: 699px) {
+@media (max-width: 1199px) {
   html,
   body {
     overflow: auto;
