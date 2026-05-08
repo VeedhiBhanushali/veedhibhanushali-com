@@ -1,7 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
-import { LayoutModeGate } from "./components/LayoutModeGate";
 
 const inter = Inter({
   variable: "--font-inter",
@@ -18,6 +17,7 @@ export const metadata: Metadata = {
 export const viewport: Viewport = {
   width: "device-width",
   initialScale: 1,
+  viewportFit: "cover",
 };
 
 export default function RootLayout({
@@ -27,10 +27,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className={`${inter.variable} h-full antialiased`}>
-      <body className="min-h-full">
-        <LayoutModeGate />
-        {children}
-      </body>
+      <body className="min-h-full">{children}</body>
     </html>
   );
 }

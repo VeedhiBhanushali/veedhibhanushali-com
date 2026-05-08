@@ -295,15 +295,15 @@ const WORK_EXPERIENCE: WorkExperience[] = [
 
 export default function Home() {
   return (
-    <main className="pf-page relative min-h-dvh w-full overflow-x-hidden max-[699px]:overflow-y-auto min-[700px]:overflow-hidden">
-      {/* Desktop */}
+    <main className="pf-page">
+      {/* Desktop: 1920×1080 Figma canvas, scaled to fit with safe margins. */}
       <div className="pf-stage pf-desktop">
         <div className="pf-canvas">
           <HomeCanvas />
         </div>
       </div>
-      {/* Responsive */}
-      <div className="pf-responsive relative z-10 min-h-dvh flex-col gap-10 px-4 py-8 sm:px-6 sm:py-10 lg:px-8">
+      {/* Responsive: stacked sections that flow naturally on narrower viewports. */}
+      <div className="pf-responsive relative z-10 min-h-dvh w-full max-w-[1080px] flex-col gap-10 self-center px-4 py-8 sm:px-6 sm:py-10 mx-auto">
         <ResponsiveHome />
       </div>
     </main>
@@ -794,7 +794,7 @@ function ProjectTile({
               src={project.imageSrc}
               alt={`${project.title} preview`}
               fill
-              sizes="(min-width: 1200px) 360px, 50vw"
+              sizes="(min-width: 1024px) 360px, 50vw"
               className="object-cover opacity-95"
               style={{ objectPosition: "70% center" }}
               priority={project.title.startsWith("Bridge")}
@@ -1186,7 +1186,7 @@ function ResponsiveHome() {
               alt="Veeya eating"
               fill
               priority
-              sizes="(max-width: 1199px) 180px, 262px"
+              sizes="(max-width: 1023px) 220px, 262px"
               className="object-cover"
               style={{ objectPosition: "42% center" }}
             />
