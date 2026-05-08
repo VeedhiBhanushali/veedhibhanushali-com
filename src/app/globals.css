@@ -89,8 +89,9 @@ body > * {
 
 /*
  * The desktop layout is a fixed 1920×1080 absolute composition that's scaled
- * down to fit. We use 92cqi / 92cqb so the canvas always has a clean ~4% safe
- * margin from each viewport edge (instead of bleeding to the edges).
+ * down to fit. We use 80cqi / 80cqb so the canvas renders at ~80% of the fit
+ * size, leaving a ~10% margin on every side and keeping content from feeling
+ * zoomed-in / cramped.
  */
 .pf-canvas {
   position: absolute;
@@ -101,7 +102,7 @@ body > * {
   margin-top: -540px;
   margin-left: -960px;
   transform-origin: center center;
-  transform: scale(min(calc(92cqi / 1920), calc(92cqb / 1080)));
+  transform: scale(min(calc(80cqi / 1920), calc(80cqb / 1080)));
 }
 
 .pf-card-layer {
