@@ -88,24 +88,25 @@ body > * {
 }
 
 /*
- * The desktop layout is a fixed 1920×1080 absolute composition that's scaled
- * down to fit. We compute the scale from plain vw/vh so it's predictable and
- * works in every browser (no container-query support edge cases). The 70%
- * factor reserves a generous ~15% margin on every side so the canvas never
- * touches the viewport edges and never feels "zoomed in".
- *
- * --pf-canvas-scale is exposed as a custom property in case other CSS needs
- * to compensate for the scale (e.g. inverse-scale a fixed pixel value).
+ * The desktop layout is already designed as a 1920×1080 composition with its
+ * own internal margins. Fit that canvas to the viewport exactly; adding another
+ * percentage shrink here double-applies spacing and makes the whole site look
+ * miniature at normal browser zoom.
  */
 .pf-canvas {
-  --pf-canvas-scale: min(calc(70vw / 1920px), calc(70vh / 1080px));
+  --pf-canvas-width: 1920px;
+  --pf-canvas-height: 1080px;
+  --pf-canvas-scale: min(
+    calc(100dvw / var(--pf-canvas-width)),
+    calc(100dvh / var(--pf-canvas-height))
+  );
   position: absolute;
   top: 50%;
   left: 50%;
-  width: 1920px;
-  height: 1080px;
-  margin-top: -540px;
-  margin-left: -960px;
+  width: var(--pf-canvas-width);
+  height: var(--pf-canvas-height);
+  margin-top: calc(var(--pf-canvas-height) / -2);
+  margin-left: calc(var(--pf-canvas-width) / -2);
   transform-origin: center center;
   transform: scale(var(--pf-canvas-scale));
 }

@@ -16,6 +16,8 @@ const A = "/assets/figma-32-55";
 
 type BrandLogo = {
   name: string;
+  /** Renders the image clipped to a circle at 10% larger scale. */
+  circle?: boolean;
 } & (
   | { src: string; width: number; height: number }
   | { initials: string }
@@ -147,18 +149,21 @@ const WORK_LOGOS: BrandLogo[] = [
     src: `${A}/logo-applied-engineering.png`,
     width: 72,
     height: 68,
+    circle: true,
   },
   {
     name: "Bridge",
     src: `${A}/logo-headstarter-v2.png`,
     width: 96,
     height: 96,
+    circle: true,
   },
   {
     name: "Headstarter AI",
     src: `${A}/logo-bridge-v2.png`,
     width: 96,
     height: 96,
+    circle: true,
   },
   {
     name: "GlitzFashions",
@@ -296,7 +301,7 @@ const WORK_EXPERIENCE: WorkExperience[] = [
 export default function Home() {
   return (
     <main className="pf-page">
-      {/* Desktop: 1920×1080 Figma canvas, scaled to fit with safe margins. */}
+      {/* Desktop: 1920×1080 Figma canvas fit directly to the viewport. */}
       <div className="pf-stage pf-desktop">
         <div className="pf-canvas">
           <HomeCanvas />
@@ -585,13 +590,25 @@ function CompanyLogoPill({ logo }: { logo: (typeof WORK_LOGOS)[number] }) {
   return (
     <div className="flex h-[48px] min-w-[88px] items-center justify-center rounded-full border border-black/[0.07] bg-white px-4">
       {"src" in logo ? (
-        <Image
-          src={logo.src}
-          alt={logo.name}
-          width={logo.width}
-          height={logo.height}
-          className="max-h-[28px] w-auto object-contain opacity-70"
-        />
+        logo.circle ? (
+          <div className="h-[31px] w-[31px] shrink-0 overflow-hidden rounded-full opacity-70">
+            <Image
+              src={logo.src}
+              alt={logo.name}
+              width={logo.width}
+              height={logo.height}
+              className="h-full w-full object-cover"
+            />
+          </div>
+        ) : (
+          <Image
+            src={logo.src}
+            alt={logo.name}
+            width={logo.width}
+            height={logo.height}
+            className="max-h-[28px] w-auto object-contain opacity-70"
+          />
+        )
       ) : (
         <span
           className="text-black/60"
@@ -1082,7 +1099,7 @@ function ResponsiveHome() {
       <article className="relative grid gap-10 rounded-[28px] bg-white p-7 shadow-[0_30px_80px_-20px_rgba(255,120,140,0.18),0_8px_24px_-8px_rgba(0,0,0,0.06)] sm:rounded-[34px] sm:p-9 md:p-11 lg:grid-cols-[minmax(0,1fr)_clamp(180px,24vw,262px)] lg:gap-10">
         <section className="flex min-w-0 flex-col gap-8">
           <h1 className="pf-type-hero leading-none">
-            Hey! I&apos;m <span style={{ fontWeight: 500 }}>Veeya Bhanushali</span>
+            Hey! I&apos;m <span style={{ fontWeight: 500 }}>Vee</span>
           </h1>
           <p className="pf-type-hero-lead">
             <HeroLeadTypewriter
