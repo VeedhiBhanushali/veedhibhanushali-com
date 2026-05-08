@@ -77,6 +77,15 @@ body > * {
   background: transparent;
 }
 
+/* Default “100%” should visually match ~75% browser zoom on desktop. */
+.pf-layout-desktop .pf-page {
+  --pf-ui-scale: 0.75;
+  transform: scale(var(--pf-ui-scale));
+  transform-origin: top left;
+  width: calc(100% / var(--pf-ui-scale));
+  height: calc(100dvh / var(--pf-ui-scale));
+}
+
 /* ── Stage / Canvas scaling ───────────────────────────────────────────────── */
 .pf-stage {
   position: absolute;
