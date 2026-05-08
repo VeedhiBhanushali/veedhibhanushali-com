@@ -89,11 +89,16 @@ body > * {
 
 /*
  * The desktop layout is a fixed 1920×1080 absolute composition that's scaled
- * down to fit. We use 84cqi / 84cqb so the canvas renders at ~84% of the fit
- * size, leaving an ~8% margin on every side. This balances "not too zoomed in"
- * with readable text at smaller viewports (≥ 900px).
+ * down to fit. We compute the scale from plain vw/vh so it's predictable and
+ * works in every browser (no container-query support edge cases). The 70%
+ * factor reserves a generous ~15% margin on every side so the canvas never
+ * touches the viewport edges and never feels "zoomed in".
+ *
+ * --pf-canvas-scale is exposed as a custom property in case other CSS needs
+ * to compensate for the scale (e.g. inverse-scale a fixed pixel value).
  */
 .pf-canvas {
+  --pf-canvas-scale: min(calc(70vw / 1920px), calc(70vh / 1080px));
   position: absolute;
   top: 50%;
   left: 50%;
@@ -102,7 +107,7 @@ body > * {
   margin-top: -540px;
   margin-left: -960px;
   transform-origin: center center;
-  transform: scale(min(calc(84cqi / 1920), calc(84cqb / 1080)));
+  transform: scale(var(--pf-canvas-scale));
 }
 
 .pf-card-layer {
