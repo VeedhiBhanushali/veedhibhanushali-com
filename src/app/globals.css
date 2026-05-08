@@ -321,7 +321,7 @@ body > * {
   display: none;
 }
 
-@media (min-width: 1200px) {
+@media (min-width: 1100px) {
   .pf-desktop {
     display: block;
   }
@@ -331,7 +331,7 @@ body > * {
   }
 }
 
-@media (max-width: 1199px) {
+@media (max-width: 1099px) {
   html,
   body {
     overflow: auto;

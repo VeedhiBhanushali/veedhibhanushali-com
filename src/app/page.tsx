@@ -295,7 +295,7 @@ const WORK_EXPERIENCE: WorkExperience[] = [
 
 export default function Home() {
   return (
-    <main className="pf-page relative min-h-dvh w-full overflow-x-hidden max-[1199px]:overflow-y-auto min-[1200px]:overflow-hidden">
+    <main className="pf-page relative min-h-dvh w-full overflow-x-hidden max-[1099px]:overflow-y-auto min-[1100px]:overflow-hidden">
       {/* Desktop */}
       <div className="pf-stage pf-desktop">
         <div className="pf-canvas">
