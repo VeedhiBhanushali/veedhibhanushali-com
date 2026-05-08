@@ -321,6 +321,20 @@ body > * {
   display: none;
 }
 
+/* JS-driven gate (more reliable than media queries on some desktop setups). */
+.pf-layout-desktop .pf-desktop {
+  display: block;
+}
+.pf-layout-desktop .pf-responsive {
+  display: none;
+}
+.pf-layout-responsive .pf-responsive {
+  display: flex;
+}
+.pf-layout-responsive .pf-desktop {
+  display: none;
+}
+
 @media (min-width: 700px) {
   .pf-desktop {
     display: block;
