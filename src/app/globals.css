@@ -1,0 +1,345 @@
+@import url("https://api.fontshare.com/v2/css?f[]=satoshi@400,500&display=swap");
+@import "tailwindcss";
+
+:root {
+  --font-sans: var(--font-inter), ui-sans-serif, system-ui, -apple-system,
+    "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif;
+
+  /* Design tokens from Figma */
+  --pf-text: #3e3e3e;
+  --pf-text-muted: rgba(0, 0, 0, 0.48);
+  --pf-text-soft: rgba(0, 0, 0, 0.6);
+  --pf-text-body: rgba(0, 0, 0, 0.75);
+  --pf-pill-bg: #f2f2f2;
+  --pf-pill-border: #d2d2d2;
+  --pf-resume-bg: #e2f7ff;
+  --pf-bubble-bg: #f0f0f0;
+  --pf-arrow-bg: #4b4b4b;
+  --pf-sidebar-bg: rgba(255, 255, 255, 0.38);
+  --pf-sidebar-border: rgba(0, 0, 0, 0.14);
+  --pf-card-rotated: rgba(255, 255, 255, 0.41);
+
+  /* Shared type scale (responsive + desktop targets) */
+  --pf-fs-hero: clamp(38px, 7.2vw, 64px);
+  --pf-fs-hero-lead: clamp(18px, 2.6vw, 25px);
+  --pf-fs-section-eyebrow: clamp(16px, 2vw, 20px);
+  --pf-fs-section-display: clamp(36px, 7.5vw, 58px);
+  --pf-fs-section-h1: clamp(38px, 7.2vw, 64px);
+  --pf-fs-subtitle: clamp(18px, 2.2vw, 24px);
+  --pf-fs-body: clamp(16px, 2vw, 18px);
+  --pf-leading-body: 1.3;
+  --pf-leading-snug: 1.22;
+}
+
+@theme inline {
+  --font-sans: var(--font-inter);
+}
+
+html,
+body {
+  height: 100%;
+  width: 100%;
+  overflow: hidden;
+  color: #171717;
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+body {
+  margin: 0;
+  background: #eaf7fb;
+}
+
+/* Single full-viewport decorative layer (avoid stacking a second copy in the canvas). */
+body::before {
+  content: "";
+  position: fixed;
+  inset: -36px;
+  z-index: 0;
+  pointer-events: none;
+  background:
+    linear-gradient(rgba(226, 247, 255, 0.08), rgba(226, 247, 255, 0.08)),
+    url("/assets/figma-32-55/bg-new.png") center / cover no-repeat;
+  transform: scale(1.04);
+  transform-origin: center;
+}
+
+body > * {
+  position: relative;
+  z-index: 1;
+}
+
+/* ── Page shell ──────────────────────────────────────────────────────────── */
+.pf-page {
+  isolation: isolate;
+  background: transparent;
+}
+
+/* ── Stage / Canvas scaling ───────────────────────────────────────────────── */
+.pf-stage {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  container-type: size;
+  overflow: hidden;
+}
+
+.pf-canvas {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 1920px;
+  height: 1080px;
+  margin-top: -540px;
+  margin-left: -960px;
+  transform-origin: center center;
+  transform: scale(min(calc(100cqi / 1920), calc(100cqb / 1080)));
+}
+
+.pf-card-layer {
+  position: absolute;
+  inset: 0;
+  transition:
+    opacity 680ms cubic-bezier(0.4, 0, 0.2, 1),
+    filter 680ms cubic-bezier(0.4, 0, 0.2, 1),
+    transform 680ms cubic-bezier(0.4, 0, 0.2, 1);
+  will-change: opacity, filter, transform;
+}
+
+/* ── Glassmorphism ────────────────────────────────────────────────────────── */
+.pf-glass {
+  background: var(--pf-sidebar-bg);
+  -webkit-backdrop-filter: blur(22px) saturate(140%);
+  backdrop-filter: blur(22px) saturate(140%);
+  border: 1px solid var(--pf-sidebar-border);
+}
+
+/* ── Inner card ──────────────────────────────────────────────────────────── */
+.pf-card {
+  background: rgba(255, 255, 255, 0.42);
+  -webkit-backdrop-filter: blur(24px) saturate(1.8);
+  backdrop-filter: blur(24px) saturate(1.8);
+  border: 1px solid rgba(255, 255, 255, 0.65);
+  border-radius: 18px;
+  box-shadow:
+    0 2px 16px rgba(0, 0, 0, 0.05),
+    inset 0 0 0 0.5px rgba(255, 255, 255, 0.3);
+  transition: all 0.22s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.pf-card:hover {
+  transform: translateY(-3px);
+  box-shadow:
+    0 8px 32px rgba(0, 0, 0, 0.1),
+    inset 0 0 0 0.5px rgba(255, 255, 255, 0.4);
+}
+
+/* ── Section eyebrow ─────────────────────────────────────────────────────── */
+.pf-eyebrow {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: rgba(0, 0, 0, 0.38);
+  font-family: "Satoshi", var(--font-sans);
+}
+
+/* ── Shared typography (Satoshi + one scale site-wide) ───────────────────── */
+.pf-type-hero {
+  font-family: "Satoshi", var(--font-sans);
+  font-size: var(--pf-fs-hero);
+  font-weight: 400;
+  line-height: 1;
+  color: var(--pf-text);
+}
+
+.pf-type-hero-lead {
+  font-family: "Satoshi", var(--font-sans);
+  font-size: var(--pf-fs-hero-lead);
+  letter-spacing: -0.03em;
+  line-height: var(--pf-leading-snug);
+  color: rgba(0, 0, 0, 0.45);
+}
+
+.pf-type-section-eyebrow {
+  font-family: "Satoshi", var(--font-sans);
+  font-size: var(--pf-fs-section-eyebrow);
+  letter-spacing: -0.03em;
+  color: rgba(0, 0, 0, 0.4);
+}
+
+.pf-type-section-display {
+  font-family: "Satoshi", var(--font-sans);
+  font-size: var(--pf-fs-section-display);
+  font-weight: 500;
+  letter-spacing: -0.03em;
+  line-height: 1;
+  color: var(--pf-text);
+}
+
+.pf-type-section-h1 {
+  font-family: "Satoshi", var(--font-sans);
+  font-size: var(--pf-fs-section-h1);
+  font-weight: 400;
+  line-height: 1;
+  color: var(--pf-text);
+}
+
+.pf-type-subtitle {
+  font-family: "Satoshi", var(--font-sans);
+  font-size: var(--pf-fs-subtitle);
+  font-weight: 500;
+  letter-spacing: -0.03em;
+  line-height: 1.2;
+  color: #070707;
+}
+
+.pf-type-body {
+  font-family: "Satoshi", var(--font-sans);
+  font-size: var(--pf-fs-body);
+  letter-spacing: -0.03em;
+  line-height: var(--pf-leading-body);
+  color: #070707;
+}
+
+/* Card / timeline descriptions (project + work bodies) */
+.pf-type-card-body {
+  font-family: "Satoshi", var(--font-sans);
+  font-size: 15px;
+  letter-spacing: -0.03em;
+  line-height: 1.38;
+  color: rgba(0, 0, 0, 0.55);
+}
+
+/* White content panels — same padding everywhere */
+.pf-surface-section {
+  border-radius: 28px;
+  background: #fff;
+  padding: 1.75rem;
+  box-shadow:
+    0 30px 80px -20px rgba(255, 120, 140, 0.18),
+    0 8px 24px -8px rgba(0, 0, 0, 0.06);
+}
+
+@media (min-width: 640px) {
+  .pf-surface-section {
+    border-radius: 34px;
+    padding: 2.25rem;
+  }
+}
+
+@media (min-width: 768px) {
+  .pf-surface-section {
+    padding: 2.75rem;
+  }
+}
+
+.pf-horizontal-scroll {
+  cursor: grab;
+  scrollbar-width: none;
+  -webkit-overflow-scrolling: touch;
+  user-select: none;
+}
+
+.pf-horizontal-scroll:active {
+  cursor: grabbing;
+}
+
+.pf-horizontal-scroll::-webkit-scrollbar {
+  display: none;
+}
+
+.pf-thin-scroll {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(0, 0, 0, 0.18) transparent;
+}
+
+.pf-thin-scroll::-webkit-scrollbar {
+  width: 6px;
+}
+
+.pf-thin-scroll::-webkit-scrollbar-thumb {
+  background: rgba(0, 0, 0, 0.18);
+  border-radius: 999px;
+}
+
+.pf-skill-marquee {
+  animation: pf-marquee 28s linear infinite;
+}
+
+.pf-skill-marquee:hover {
+  animation-play-state: paused;
+}
+
+.pf-project-gradient {
+  animation: pf-gradient-drift 12s ease-in-out infinite alternate;
+  background-size: 150% 150%;
+}
+
+.pf-status-dot::before {
+  animation: pf-status-pulse 1.65s ease-out infinite;
+}
+
+@keyframes pf-marquee {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+@keyframes pf-gradient-drift {
+  from {
+    background-position: 0% 50%;
+    filter: hue-rotate(0deg);
+  }
+  to {
+    background-position: 100% 50%;
+    filter: hue-rotate(8deg);
+  }
+}
+
+@keyframes pf-status-pulse {
+  0% {
+    opacity: 0.7;
+    transform: scale(1);
+  }
+  100% {
+    opacity: 0;
+    transform: scale(2.45);
+  }
+}
+
+/* ── Responsive shell ─────────────────────────────────────────────────────── */
+.pf-responsive {
+  display: flex;
+}
+.pf-desktop {
+  display: none;
+}
+
+@media (min-width: 1200px) {
+  .pf-desktop {
+    display: block;
+  }
+
+  .pf-responsive {
+    display: none;
+  }
+}
+
+@media (max-width: 1199px) {
+  html,
+  body {
+    overflow: auto;
+  }
+
+  .pf-page {
+    min-height: 100dvh;
+    overflow-x: hidden;
+    overflow-y: auto;
+  }
+}
