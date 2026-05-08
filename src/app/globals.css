@@ -89,9 +89,9 @@ body > * {
 
 /*
  * The desktop layout is a fixed 1920×1080 absolute composition that's scaled
- * down to fit. We use 80cqi / 80cqb so the canvas renders at ~80% of the fit
- * size, leaving a ~10% margin on every side and keeping content from feeling
- * zoomed-in / cramped.
+ * down to fit. We use 84cqi / 84cqb so the canvas renders at ~84% of the fit
+ * size, leaving an ~8% margin on every side. This balances "not too zoomed in"
+ * with readable text at smaller viewports (≥ 900px).
  */
 .pf-canvas {
   position: absolute;
@@ -102,7 +102,7 @@ body > * {
   margin-top: -540px;
   margin-left: -960px;
   transform-origin: center center;
-  transform: scale(min(calc(80cqi / 1920), calc(80cqb / 1080)));
+  transform: scale(min(calc(84cqi / 1920), calc(84cqb / 1080)));
 }
 
 .pf-card-layer {
@@ -322,10 +322,15 @@ body > * {
 
 /* ── Layout mode switching (single source of truth) ──────────────────────── */
 /*
- * ≥ 1024px → desktop "canvas" layout (sidebar + paged cards). The viewport is
+ * ≥ 900px → desktop "canvas" layout (sidebar + paged cards). The viewport is
  * locked to one screen because CardPager owns vertical navigation.
  *
- * < 1024px → responsive flow layout (vertically stacked sections, native scroll).
+ * < 900px → responsive flow layout (vertically stacked sections, native scroll).
+ *
+ * The 900px threshold is intentionally generous: it ensures any normal laptop
+ * viewport (typically ≥ 1024 even with browser scrollbars and chrome) reliably
+ * lands in the desktop layout and never falls into the responsive layout by
+ * a few-pixel quirk.
  */
 .pf-desktop {
   display: none;
@@ -334,7 +339,7 @@ body > * {
   display: none;
 }
 
-@media (min-width: 1024px) {
+@media (min-width: 900px) {
   html,
   body {
     overflow: hidden;
@@ -350,7 +355,7 @@ body > * {
   }
 }
 
-@media (max-width: 1023px) {
+@media (max-width: 899px) {
   body {
     overflow-y: auto;
   }

@@ -794,7 +794,7 @@ function ProjectTile({
               src={project.imageSrc}
               alt={`${project.title} preview`}
               fill
-              sizes="(min-width: 1024px) 360px, 50vw"
+              sizes="(min-width: 900px) 360px, 50vw"
               className="object-cover opacity-95"
               style={{ objectPosition: "70% center" }}
               priority={project.title.startsWith("Bridge")}
@@ -1186,7 +1186,7 @@ function ResponsiveHome() {
               alt="Veeya eating"
               fill
               priority
-              sizes="(max-width: 1023px) 220px, 262px"
+              sizes="(max-width: 899px) 220px, 262px"
               className="object-cover"
               style={{ objectPosition: "42% center" }}
             />
@@ -1321,7 +1321,7 @@ function ResponsiveProjectCard({ project }: { project: Project }) {
               src={project.imageSrc}
               alt={`${project.title} preview`}
               fill
-              sizes="(min-width: 1024px) 340px, 90vw"
+              sizes="(min-width: 700px) 340px, 90vw"
               className="object-cover opacity-95"
               style={{ objectPosition: "70% center" }}
             />

@@ -16,7 +16,7 @@ const HASH_TO_INDEX: Record<string, number> = {
   "#work": 3,
 };
 
-const DESKTOP_MEDIA = "(min-width: 1024px)";
+const DESKTOP_MEDIA = "(min-width: 900px)";
 const INDEX_TO_HASH = ["#home", "#about", "#projects", "#work"];
 
 function isDesktopViewport() {
